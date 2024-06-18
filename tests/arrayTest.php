@@ -35,4 +35,54 @@ class ArrayTest extends TestCase
         $this->assertEquals( $expectedResult, $result );
     }
 
+
+    public function testKeyIsObject()
+    {
+        $originalArray = [
+            'foo' => (object) array(
+                'bar' => 'baz',
+                'pax' => 'vax'
+            ),
+        ];
+        $expectedResult = true;
+
+        $twig   = new SlimTwig();
+        $result = $twig->get( $originalArray, 'foo.bar', true );
+
+        $this->assertEquals( $expectedResult, $result );
+    }
+
+    public function testKeyIsArrayObject()
+    {
+        $originalArray = [
+            'foo' => (object) array(
+                'bar' => 'baz',
+                'pax' => 'vax'
+            ),
+        ];
+        $expectedResult = true;
+
+        $twig   = new SlimTwig();
+        $result = $twig->get( $originalArray, 'foo.bar.baz', true );
+
+        $this->assertEquals( $expectedResult, $result );
+    }
+
+    public function testKeyIsObjectObject()
+    {
+        $originalArray = ( object )[
+            'foo' => (object) array(
+                'bar' => 'baz',
+                'pax' => 'vax'
+            ),
+        ];
+        $expectedResult = true;
+
+        $twig   = new SlimTwig();
+        $result = $twig->get( $originalArray, 'foo.bar.baz', true );
+
+        $this->assertEquals( $expectedResult, $result );
+    }
+
+
 }

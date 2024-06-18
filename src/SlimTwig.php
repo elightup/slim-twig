@@ -20,7 +20,7 @@ class SlimTwig {
 			if ( isset( $array[ $key ] ) ) {
 				$array = $array[ $key ];
 			}
-			if ( is_object( $array[ $key ] ) ) {
+			if ( is_object( $array->$key ) ) {
 				$array = $array->$key;
 			}
 
