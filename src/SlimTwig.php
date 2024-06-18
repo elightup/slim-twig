@@ -24,7 +24,7 @@ class SlimTwig {
 				$array = $array->$key;
 			}
 
-			return default;
+			return $default;
 		}
 
 		return $array;

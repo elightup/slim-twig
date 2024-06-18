@@ -20,4 +20,19 @@ class ArrayTest extends TestCase
         $this->assertEquals( $expectedResult, $result );
     }
 
+    public function testKeyIsMulti()
+    {
+        $originalArray = [
+            'foo' => [
+                'bar' => 'baz',
+            ],
+        ];
+        $expectedResult = true;
+
+        $twig   = new SlimTwig();
+        $result = $twig->get( $originalArray, 'foo.bar', true );
+
+        $this->assertEquals( $expectedResult, $result );
+    }
+
 }
