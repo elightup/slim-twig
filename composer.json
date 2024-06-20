@@ -4,9 +4,6 @@
 	"config": {
 		"prepend-autoloader": false
 	},
-    "require-dev": {
-        "phpunit/phpunit": "^11.2"
-    },
     "autoload": {
         "psr-4": {
             "SlimTwig\\": "src/"
