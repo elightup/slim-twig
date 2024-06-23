@@ -13,7 +13,7 @@ class GetTest extends TestCase
         $originalArray = [
             'foo' => 'bar',
         ];
-        $expectedResult = true;
+        $expectedResult = 'bar';
 
         $twig   = new Data();
         $result = $twig::get( $originalArray, 'foo' );
@@ -28,7 +28,7 @@ class GetTest extends TestCase
                 'bar' => 'baz',
             ],
         ];
-        $expectedResult = true;
+        $expectedResult = 'baz';
 
         $twig   = new Data();
         $result = $twig::get( $originalArray, 'foo.bar', true );
@@ -45,7 +45,7 @@ class GetTest extends TestCase
                 'pax' => 'vax'
             ),
         ];
-        $expectedResult = true;
+        $expectedResult = 'baz';
 
         $twig   = new Data();
         $result = $twig::get( $originalArray, 'foo.bar', true );
@@ -63,7 +63,7 @@ class GetTest extends TestCase
                 'pax' => 'vax'
             ),
         ];
-        $expectedResult = true;
+        $expectedResult = 'baz value';
 
         $twig   = new Data();
         $result = $twig::get( $originalArray, 'foo.bar.baz', true );

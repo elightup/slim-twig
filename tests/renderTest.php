@@ -6,49 +6,48 @@ use SlimTwig\Renderer;
 
 class RenderTest extends TestCase
 {
-
-    public function testSingleVariable()
+    /**
+     * @param string $originalString String to be sluggified
+     * @param string $expectedResult What we expect our slug result to be
+     *
+     * @dataProvider providerTestRender
+     */
+    public function testRender( $originalContent, $expectedResult )
     {
-        $originalContent  = 'Hello {{ name }}';
-        $expectedResult = 'Hello World';
+        $data = [
+            'plugin' => 'SlimTwig',
+            'person' => [
+                'first' => [
+                    'name' => 'World',
+                ],
+            ],
+        ];
 
         $twig   = new Renderer();
-        $result = $twig::render( $originalContent, [ 'name' => 'World' ] );
+        $result = $twig::render( $originalContent, $data );
 
         $this->assertEquals( $expectedResult, $result );
     }
 
-    public function testSingleVariableWithDot()
+    public static function providerTestRender()
     {
-        $originalContent  = 'Hello {{ name.first }}';
-        $expectedResult = 'Hello World';
-
-        $twig   = new Renderer();
-        $result = $twig::render( $originalContent, [ 'name' => [ 'first' => 'World' ] ] );
-
-        $this->assertEquals( $expectedResult, $result );
+        return [
+            [
+                'Hello World. Check out new plugin SlimTwig', //no variable
+                'Hello World. Check out new plugin SlimTwig'
+            ],
+            [
+                'Hello {{ plugin }}', //single variable
+                'Hello SlimTwig'
+            ],
+            [
+                'Hello {{ person.first }}. Check out new plugin {{ plugin }}{{ not_exists }}', // Array and not exists variable
+                'Hello Array. Check out new plugin SlimTwig'
+            ],
+            [
+                'Hello {{ person.first.name }}. { this is something new }, or {{ is a broken brackets', // Unstandard variable
+                'Hello World. { this is something new }, or {{ is a broken brackets'
+            ],
+        ];
     }
-
-    public function testMultiVariable()
-    {
-        $originalContent  = 'Hello {{ name.first }}. Check out new plugin {{ plugin }} {{ not_exists }}';
-        $expectedResult = 'Hello World. Check out new plugin SlimTwig ';
-
-        $twig   = new Renderer();
-        $result = $twig::render( $originalContent, [ 'name' => [ 'first' => 'World' ], 'plugin' => 'SlimTwig' ] );
-
-        $this->assertEquals( $expectedResult, $result );
-    }
-
-    public function testUnStandardVariable()
-    {
-        $originalContent  = 'Hello {{ person.first.name }}. { this is something new }, or {{ is a broken brackets';
-        $expectedResult = 'Hello World. { this is something new }, or {{ is a broken brackets';
-
-        $twig   = new Renderer();
-        $result = $twig::render( $originalContent, [ 'person' => [ 'first' => [ 'name' => 'World' ] ] ] );
-
-        $this->assertEquals( $expectedResult, $result );
-    }
-
 }
