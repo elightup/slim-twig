@@ -16,8 +16,8 @@ class Renderer {
 		return $text;
 	}
 
-	private static function render_variable( string $vari, $data ) {
-		return Data::get( $data, $vari, '' );
+	private static function render_variable( string $variable, $data ) {
+		return Data::get( $data, $variable, '' );
 	}
 }
 
