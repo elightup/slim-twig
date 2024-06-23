@@ -42,11 +42,11 @@ class RenderTest extends TestCase
 
     public function testUnStandardVariable()
     {
-        $originalContent  = 'Hello {{ name.first }}. { this is something new }, or {{ is a broken brackets';
+        $originalContent  = 'Hello {{ person.first.name }}. { this is something new }, or {{ is a broken brackets';
         $expectedResult = 'Hello World. { this is something new }, or {{ is a broken brackets';
 
         $twig   = new Renderer();
-        $result = $twig::render( $originalContent, [ 'name' => [ 'first' => 'World' ] ] );
+        $result = $twig::render( $originalContent, [ 'person' => [ 'first' => [ 'name' => 'World' ] ] ] );
 
         $this->assertEquals( $expectedResult, $result );
     }
