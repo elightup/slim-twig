@@ -1,55 +1,36 @@
 <?php
-namespace Tests;
-
-require __DIR__ . '/../src/Data.php';
-
 use PHPUnit\Framework\TestCase;
 use SlimTwig\Data;
 
-class GetTest extends TestCase {
+class DataTest extends TestCase {
 	public function testKeyIsSingle() {
-		$originalArray  = [
+		$data  = [
 			'foo' => 'bar',
 		];
-		$expectedResult = 'bar';
-
-		$twig   = new Data();
-		$result = $twig::get( $originalArray, 'foo' );
-
-		$this->assertSame( $expectedResult, $result );
+		$this->assertSame( Data::get( $data, 'foo' ), 'bar' );
 	}
 
 	public function testKeyIsMulti() {
-		$originalArray  = [
+		$data  = [
 			'foo' => [
 				'bar' => 'baz',
 			],
 		];
-		$expectedResult = 'baz';
-
-		$twig   = new Data();
-		$result = $twig::get( $originalArray, 'foo.bar', true );
-
-		$this->assertSame( $expectedResult, $result );
+		$this->assertSame( Data::get( $data, 'foo.bar' ), 'baz' );
 	}
 
 	public function testKeyIsObject() {
-		$originalArray  = [
+		$data  = [
 			'foo' => (object) [
 				'bar' => 'baz',
 				'pax' => 'vax',
 			],
 		];
-		$expectedResult = 'baz';
-
-		$twig   = new Data();
-		$result = $twig::get( $originalArray, 'foo.bar', true );
-
-		$this->assertSame( $expectedResult, $result );
+		$this->assertSame( Data::get( $data, 'foo.bar' ), 'baz' );
 	}
 
 	public function testKeyIsObjectObject() {
-		$originalArray  = (object) [
+		$data  = (object) [
 			'foo' => (object) [
 				'bar' => [
 					'baz' => 'baz value',
@@ -57,11 +38,18 @@ class GetTest extends TestCase {
 				'pax' => 'vax',
 			],
 		];
-		$expectedResult = 'baz value';
+		$this->assertSame( Data::get( $data, 'foo.bar.baz' ), 'baz value' );
+	}
 
-		$twig   = new Data();
-		$result = $twig::get( $originalArray, 'foo.bar.baz', true );
-
-		$this->assertSame( $expectedResult, $result );
+	public function testKeyNotExists() {
+		$data  = (object) [
+			'foo' => (object) [
+				'bar' => [
+					'baz' => 'baz value',
+				],
+				'pax' => 'vax',
+			],
+		];
+		$this->assertSame( Data::get( $data, 'foo.bar.pax' ), null );
 	}
 }
