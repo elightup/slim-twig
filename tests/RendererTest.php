@@ -1,17 +1,10 @@
 <?php
-namespace Tests;
-
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use SlimTwig\Renderer;
 
-class RenderTest extends TestCase {
-
-	/**
-	 * @param string $originalString String to be sluggified
-	 * @param string $expectedResult What we expect our slug result to be
-	 *
-	 * @dataProvider providerTestRender
-	 */
+class RendererTest extends TestCase {
+	#[DataProvider('providerTestRender')]
 	public function testRender( $originalContent, $expectedResult ) {
 		$data = [
 			'plugin' => 'SlimTwig',
@@ -22,9 +15,7 @@ class RenderTest extends TestCase {
 			],
 		];
 
-		$twig   = new Renderer();
-		$result = $twig::render( $originalContent, $data );
-
+		$result = Renderer::render( $originalContent, $data );
 		$this->assertSame( $expectedResult, $result );
 	}
 
@@ -43,7 +34,7 @@ class RenderTest extends TestCase {
 				'Hello Array. Check out new plugin SlimTwig',
 			],
 			[
-				'Hello {{ person.first.name }}. { this is something new }, or {{ is a broken brackets', // Unstandard variable
+				'Hello {{ person.first.name }}. { this is something new }, or {{ is a broken brackets',
 				'Hello World. { this is something new }, or {{ is a broken brackets',
 			],
 		];
