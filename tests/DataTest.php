@@ -16,7 +16,7 @@ class GetTest extends TestCase {
 		$twig   = new Data();
 		$result = $twig::get( $originalArray, 'foo' );
 
-		$this->assertEquals( $expectedResult, $result );
+		$this->assertSame( $expectedResult, $result );
 	}
 
 	public function testKeyIsMulti() {
@@ -30,7 +30,7 @@ class GetTest extends TestCase {
 		$twig   = new Data();
 		$result = $twig::get( $originalArray, 'foo.bar', true );
 
-		$this->assertEquals( $expectedResult, $result );
+		$this->assertSame( $expectedResult, $result );
 	}
 
 	public function testKeyIsObject() {
@@ -45,7 +45,7 @@ class GetTest extends TestCase {
 		$twig   = new Data();
 		$result = $twig::get( $originalArray, 'foo.bar', true );
 
-		$this->assertEquals( $expectedResult, $result );
+		$this->assertSame( $expectedResult, $result );
 	}
 
 	public function testKeyIsObjectObject() {
@@ -62,6 +62,6 @@ class GetTest extends TestCase {
 		$twig   = new Data();
 		$result = $twig::get( $originalArray, 'foo.bar.baz', true );
 
-		$this->assertEquals( $expectedResult, $result );
+		$this->assertSame( $expectedResult, $result );
 	}
 }

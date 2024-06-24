@@ -25,7 +25,7 @@ class RenderTest extends TestCase {
 		$twig   = new Renderer();
 		$result = $twig::render( $originalContent, $data );
 
-		$this->assertEquals( $expectedResult, $result );
+		$this->assertSame( $expectedResult, $result );
 	}
 
 	public static function providerTestRender() {
