@@ -7,9 +7,9 @@ class Data {
 	 * Similar to data_get() function in Laravel.
 	 *
 	 * @link https://github.com/laravel/framework/blob/master/src/Illuminate/Collections/helpers.php#L46
-	 * @param  array|object  $target
-	 * @param  string        $key
-	 * @param  mixed         $default
+	 * @param  array|object $target
+	 * @param  string       $key
+	 * @param  mixed        $default
 	 * @return mixed
 	 */
 	public static function get( $target, string $key, $default = null ) {
@@ -28,4 +28,3 @@ class Data {
 		return $target;
 	}
 }
-
